@@ -1,0 +1,29 @@
+class Solution {
+    // Function to merge K sorted linked list.
+    Node mergeKLists(List<Node> arr) {
+    //creating a min heap which will store nodes in asc order based on data
+     PriorityQueue<Node> p = new PriorityQueue<Node>((a,b)->a.data-b.data);
+     for(Node n:arr){
+         if(n!=null)p.add(n);
+     }
+     
+     //creating dummy node to return 
+     Node dummy = new Node(-1);
+     Node node = dummy;
+     
+     //while minheap is empty taking the top ele(min ele), adding it to new list
+     while(!p.isEmpty()){
+         //pop the  min node
+         Node top = p.poll();
+         node.next = top;
+         node = top;
+         
+        // checking if there is any next ele for  top node in the  heap adding it back if any presenyt
+         if(top.next!=null){
+             p.add(top.next);
+         }
+     }
+     return dummy.next;
+     
+    }
+}
