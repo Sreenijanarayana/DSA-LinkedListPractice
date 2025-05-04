@@ -1,0 +1,40 @@
+
+class Solution
+{
+     public static Node reverse(Node rev){
+        Node pre = null, current = rev, next = rev.next;
+        while(current != null){
+            current.next = pre;
+            pre = current;
+            current = next;
+            if(next != null) next = next.next;
+        }
+        return pre;
+    }
+    public static Node addOne(Node head) { 
+        //code here.
+        Node Rev = reverse(head);
+        Node dummy = Rev;
+        
+        if(Rev.data != 9){
+            Rev.data = Rev.data + 1; 
+        } else {
+            int sum = 0, carry = 1;
+            Node temp = null;
+            while(dummy != null){
+                sum = carry + dummy.data; //calculate
+                carry = sum/10;
+                sum = sum % 10;
+                dummy.data = sum;
+                temp = dummy;
+                dummy = dummy.next;
+            }
+            if(carry > 0){
+                temp.next = new Node(carry);
+            }
+        }
+        
+        Rev = reverse(Rev);
+        return Rev;
+    }
+}
